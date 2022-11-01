@@ -1,16 +1,17 @@
-﻿using CorsoSystems.IgnitionNet.History.Tag;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace CorsoSystems.IgnitionNet.History
+namespace CorsoSystems.IgnitionNet.History.Db
 {
-
     /// <summary>
-	/// Requires Postgres (9.5+)
-	/// </summary>
-	public static class Queries
+    /// Requires Postgres (9.5+) for "CREATE IF NOT EXISTS"
+    /// </summary>
+    sealed class NpgsqlManager : AbstractDbManager
     {
-        // TODO: remove static and pass in Ignition parts of seed in constructor
-        // Validate generated queries and throw on construction
-        public static string EnsureAlarmEventData = @"
+		public NpgsqlManager(DbContext context) : base(context)
+		{
+		}
+
+		public override string EnsureAlarmEventData => @"
 			CREATE TABLE IF NOT EXISTS public.alarm_event_data (
 				id int4 NULL,
 				propname varchar(255) NULL,
@@ -21,7 +22,7 @@ namespace CorsoSystems.IgnitionNet.History
 			);
 			CREATE INDEX IF NOT EXISTS alarm_event_dataidndx ON public.alarm_event_data USING btree (id);";
 
-        public static string EnsureAlarmEvents = @"
+		public override string EnsureAlarmEvents => @"
 			CREATE TABLE IF NOT EXISTS public.alarm_events (
 				id serial4 NOT NULL,
 				eventid varchar(255) NULL,
@@ -34,7 +35,7 @@ namespace CorsoSystems.IgnitionNet.History
 				CONSTRAINT alarm_events_pkey PRIMARY KEY(id)
 			);";
 
-        public static string EnsureSqlthAnnotations = @"
+        public override string EnsureSqlthAnnotations => @"
 			CREATE TABLE IF NOT EXISTS public.sqlth_annotations (
 				id serial4 NOT NULL,
 				tagid int4 NULL,
@@ -48,7 +49,7 @@ namespace CorsoSystems.IgnitionNet.History
 			CREATE INDEX IF NOT EXISTS sqlth_annotationsend_timendx ON public.sqlth_annotations USING btree(end_time);
 			CREATE INDEX IF NOT EXISTS sqlthannotationsstarttimendx ON public.sqlth_annotations USING btree(start_time);";
 
-        public static string EnsureSqlthDrv = @"
+        public override string EnsureSqlthDrv => @"
 			CREATE TABLE IF NOT EXISTS public.sqlth_drv (
 				id serial4 NOT NULL,
 				""name"" varchar(255) NULL,
@@ -56,7 +57,7 @@ namespace CorsoSystems.IgnitionNet.History
 				CONSTRAINT sqlth_drv_pkey PRIMARY KEY(id)
 			);";
 
-        public static string EnsureSqlthSce = @"
+        public override string EnsureSqlthSce => @"
 			CREATE TABLE IF NOT EXISTS public.sqlth_sce (
 				scid int4 NULL,
 				start_time int8 NULL,
@@ -66,7 +67,7 @@ namespace CorsoSystems.IgnitionNet.History
 			CREATE INDEX IF NOT EXISTS sqlth_sceend_timendx ON public.sqlth_sce USING btree (end_time);
 			CREATE INDEX IF NOT EXISTS sqlth_scestart_timendx ON public.sqlth_sce USING btree (start_time);";
 
-        public static string EnsureSqlthScInfo = @"
+        public override string EnsureSqlthScInfo => @"
 			CREATE TABLE IF NOT EXISTS public.sqlth_scinfo (
 				id serial4 NOT NULL,
 				scname varchar(255) NULL,
@@ -74,7 +75,7 @@ namespace CorsoSystems.IgnitionNet.History
 				CONSTRAINT sqlth_scinfo_pkey PRIMARY KEY (id)
 			);";
 
-        public static string EnsureSqlthTe = @"
+        public override string EnsureSqlthTe => @"
 			CREATE TABLE IF NOT EXISTS public.sqlth_te (
 				id serial4 NOT NULL,
 				tagpath varchar(255) NULL,
@@ -86,13 +87,13 @@ namespace CorsoSystems.IgnitionNet.History
 				CONSTRAINT sqlth_te_pkey PRIMARY KEY(id)
 			);
 			CREATE INDEX IF NOT EXISTS sqlth_tetagpathndx ON public.sqlth_te USING btree(tagpath);";
-        public static string EnsurePartition(string partitionName)
-        {
-            // TODO: Throw on Bad generated SQL
+
+		public override string EnsurePartition(string partitionName)
+		{
             var tableName = $"public.{partitionName}";
             var pkName = $"{partitionName}_pkey";
             var idxName = $"{partitionName}tstampndx";
-
+			
             return $@"
                 CREATE TABLE IF NOT EXISTS {tableName} (
                     tagid int4 NOT NULL,
@@ -106,5 +107,5 @@ namespace CorsoSystems.IgnitionNet.History
                 );
                 CREATE INDEX IF NOT EXISTS {idxName} ON {tableName} USING btree (t_stamp);";
         }
-    }
+	}
 }
