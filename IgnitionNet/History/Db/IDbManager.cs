@@ -3,10 +3,10 @@
     public interface IDbManager
     {
         void EnsureDatabase();
-        abstract string EnsurePartition(string partitionName);
-        abstract void EnsureDatabase(ICollection<string> partitionNames);
-        public string EnsureAlarmEventData { get; }
-        public string EnsureAlarmEvents { get; }
+        public string EnsurePartition(string partitionName);
+        public void EnsureDatabase(ICollection<string> partitionNames);
+        abstract string EnsureAlarmEventData { get; }
+        abstract string EnsureAlarmEvents { get; }
         abstract string EnsureSqlthAnnotations { get;  }
         abstract string EnsureSqlthDrv { get; }
         abstract string EnsureSqlthSce { get; }
