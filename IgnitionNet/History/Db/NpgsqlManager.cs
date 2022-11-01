@@ -11,7 +11,7 @@ namespace CorsoSystems.IgnitionNet.History.Db
 		{
 		}
 
-		public override string EnsureAlarmEventData => @"
+		public override string PatchAlarmEventData => @"
 			CREATE TABLE IF NOT EXISTS public.alarm_event_data (
 				id int4 NULL,
 				propname varchar(255) NULL,
@@ -22,7 +22,7 @@ namespace CorsoSystems.IgnitionNet.History.Db
 			);
 			CREATE INDEX IF NOT EXISTS alarm_event_dataidndx ON public.alarm_event_data USING btree (id);";
 
-		public override string EnsureAlarmEvents => @"
+		public override string PatchAlarmEvents => @"
 			CREATE TABLE IF NOT EXISTS public.alarm_events (
 				id serial4 NOT NULL,
 				eventid varchar(255) NULL,
@@ -35,7 +35,7 @@ namespace CorsoSystems.IgnitionNet.History.Db
 				CONSTRAINT alarm_events_pkey PRIMARY KEY(id)
 			);";
 
-        public override string EnsureSqlthAnnotations => @"
+        public override string PathSqlthAnnotations => @"
 			CREATE TABLE IF NOT EXISTS public.sqlth_annotations (
 				id serial4 NOT NULL,
 				tagid int4 NULL,
@@ -49,7 +49,7 @@ namespace CorsoSystems.IgnitionNet.History.Db
 			CREATE INDEX IF NOT EXISTS sqlth_annotationsend_timendx ON public.sqlth_annotations USING btree(end_time);
 			CREATE INDEX IF NOT EXISTS sqlthannotationsstarttimendx ON public.sqlth_annotations USING btree(start_time);";
 
-        public override string EnsureSqlthDrv => @"
+        public override string PatchSqlthDrv => @"
 			CREATE TABLE IF NOT EXISTS public.sqlth_drv (
 				id serial4 NOT NULL,
 				""name"" varchar(255) NULL,
@@ -57,7 +57,7 @@ namespace CorsoSystems.IgnitionNet.History.Db
 				CONSTRAINT sqlth_drv_pkey PRIMARY KEY(id)
 			);";
 
-        public override string EnsureSqlthSce => @"
+        public override string PatchSqlthSce => @"
 			CREATE TABLE IF NOT EXISTS public.sqlth_sce (
 				scid int4 NULL,
 				start_time int8 NULL,
@@ -67,7 +67,7 @@ namespace CorsoSystems.IgnitionNet.History.Db
 			CREATE INDEX IF NOT EXISTS sqlth_sceend_timendx ON public.sqlth_sce USING btree (end_time);
 			CREATE INDEX IF NOT EXISTS sqlth_scestart_timendx ON public.sqlth_sce USING btree (start_time);";
 
-        public override string EnsureSqlthScInfo => @"
+        public override string PatchSqlthScInfo => @"
 			CREATE TABLE IF NOT EXISTS public.sqlth_scinfo (
 				id serial4 NOT NULL,
 				scname varchar(255) NULL,
@@ -75,7 +75,7 @@ namespace CorsoSystems.IgnitionNet.History.Db
 				CONSTRAINT sqlth_scinfo_pkey PRIMARY KEY (id)
 			);";
 
-        public override string EnsureSqlthTe => @"
+        public override string PatchSqlthTe => @"
 			CREATE TABLE IF NOT EXISTS public.sqlth_te (
 				id serial4 NOT NULL,
 				tagpath varchar(255) NULL,
@@ -88,7 +88,7 @@ namespace CorsoSystems.IgnitionNet.History.Db
 			);
 			CREATE INDEX IF NOT EXISTS sqlth_tetagpathndx ON public.sqlth_te USING btree(tagpath);";
 
-		public override string EnsurePartition(string partitionName)
+		public override string PatchPartition(string partitionName)
 		{
             var tableName = $"public.{partitionName}";
             var pkName = $"{partitionName}_pkey";
