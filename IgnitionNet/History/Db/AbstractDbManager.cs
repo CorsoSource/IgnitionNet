@@ -17,11 +17,11 @@ namespace CorsoSystems.IgnitionNet.History.Db
             {
                 _context.Database.ExecuteSqlRaw(PatchAlarmEventData);
                 _context.Database.ExecuteSqlRaw(PatchAlarmEvents);
-                _context.Database.ExecuteSqlRaw(PathSqlthAnnotations);
-                _context.Database.ExecuteSqlRaw(PatchSqlthDrv);
-                _context.Database.ExecuteSqlRaw(PatchSqlthSce);
-                _context.Database.ExecuteSqlRaw(PatchSqlthScInfo);
-                _context.Database.ExecuteSqlRaw(PatchSqlthTe);
+                _context.Database.ExecuteSqlRaw(PatchHistoricalTagAnnotations);
+                _context.Database.ExecuteSqlRaw(PatchHistoricalDriver);
+                _context.Database.ExecuteSqlRaw(PatchHistoricalScanClassExecution);
+                _context.Database.ExecuteSqlRaw(PatchHistoricalScanClass);
+                _context.Database.ExecuteSqlRaw(PatchHistoricalTag);
 
                 _context.Database.CommitTransaction();
             }
@@ -44,10 +44,10 @@ namespace CorsoSystems.IgnitionNet.History.Db
 
         public abstract string PatchAlarmEventData { get; }
         public abstract string PatchAlarmEvents { get; }
-        public abstract string PathSqlthAnnotations { get; }
-        public abstract string PatchSqlthDrv { get; }
-        public abstract string PatchSqlthSce { get; }
-        public abstract string PatchSqlthScInfo { get; }
-        public abstract string PatchSqlthTe { get; }
+        public abstract string PatchHistoricalTagAnnotations { get; }
+        public abstract string PatchHistoricalDriver { get; }
+        public abstract string PatchHistoricalScanClassExecution { get; }
+        public abstract string PatchHistoricalScanClass { get; }
+        public abstract string PatchHistoricalTag { get; }
     }
 }
