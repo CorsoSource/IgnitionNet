@@ -15,13 +15,13 @@ namespace CorsoSystems.IgnitionNet.History.Db
         {
             using (_context.Database.CurrentTransaction ?? _context.Database.BeginTransaction())
             {
-                _context.Database.ExecuteSqlRaw(PatchAlarmEventData);
-                _context.Database.ExecuteSqlRaw(PatchAlarmEvents);
-                _context.Database.ExecuteSqlRaw(PatchHistoricalTagAnnotations);
-                _context.Database.ExecuteSqlRaw(PatchHistoricalDriver);
-                _context.Database.ExecuteSqlRaw(PatchHistoricalScanClassExecution);
-                _context.Database.ExecuteSqlRaw(PatchHistoricalScanClass);
-                _context.Database.ExecuteSqlRaw(PatchHistoricalTag);
+                _context.Database.ExecuteSqlRaw(PatchAlarmEventDataQuery);
+                _context.Database.ExecuteSqlRaw(PatchAlarmEventsQuery);
+                _context.Database.ExecuteSqlRaw(PatchHistoricalTagAnnotationsQuery);
+                _context.Database.ExecuteSqlRaw(PatchHistoricalDriverQuery);
+                _context.Database.ExecuteSqlRaw(PatchHistoricalScanClassExecutionQuery);
+                _context.Database.ExecuteSqlRaw(PatchHistoricalScanClassQuery);
+                _context.Database.ExecuteSqlRaw(PatchHistoricalTagQuery);
 
                 _context.Database.CommitTransaction();
             }
@@ -33,21 +33,26 @@ namespace CorsoSystems.IgnitionNet.History.Db
             {
                 foreach (var partition in partitionNames)
                 {
-                    PatchPartition(partition);
+                    PatchPartitionQuery(partition);
                 }
 
                 PatchDatabase();
             }
         }
 
-        public abstract string PatchPartition(string partitionName);
+        public virtual void PatchPartition(string partitionName)
+        {
+            _context.Database.ExecuteSqlRaw(PatchPartitionQuery(partitionName));
+        }
 
-        public abstract string PatchAlarmEventData { get; }
-        public abstract string PatchAlarmEvents { get; }
-        public abstract string PatchHistoricalTagAnnotations { get; }
-        public abstract string PatchHistoricalDriver { get; }
-        public abstract string PatchHistoricalScanClassExecution { get; }
-        public abstract string PatchHistoricalScanClass { get; }
-        public abstract string PatchHistoricalTag { get; }
+        public abstract string PatchPartitionQuery(string partitionName);
+
+        public abstract string PatchAlarmEventDataQuery { get; }
+        public abstract string PatchAlarmEventsQuery { get; }
+        public abstract string PatchHistoricalTagAnnotationsQuery { get; }
+        public abstract string PatchHistoricalDriverQuery { get; }
+        public abstract string PatchHistoricalScanClassExecutionQuery { get; }
+        public abstract string PatchHistoricalScanClassQuery { get; }
+        public abstract string PatchHistoricalTagQuery { get; }
     }
 }

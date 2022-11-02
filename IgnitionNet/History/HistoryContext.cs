@@ -207,7 +207,7 @@ namespace CorsoSystems.IgnitionNet.History
         public virtual DbSet<AlarmEvent> AlarmEvents { get; set; } = null!;
         public virtual DbSet<AlarmEventDatum> AlarmEventData { get; set; } = null!;
         public virtual DbSet<HistoricalTagAnnotation> HistoricalTagAnnotations { get; set; } = null!;
-        public virtual DbSet<HistoricalDriver> HistoricalTagProviders { get; set; } = null!;
+        public virtual DbSet<HistoricalDriver> HistoricalDrivers { get; set; } = null!;
         public virtual DbSet<HistoricalPartition> HistoricalPartitions { get; set; } = null!;
         public virtual DbSet<HistoricalScanClass> HistoricalScanClasses { get; set; } = null!;
         public virtual DbSet<HistoricalTag> HistoricalTags { get; set; } = null!;

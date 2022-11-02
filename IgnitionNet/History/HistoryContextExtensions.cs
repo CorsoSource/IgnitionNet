@@ -24,5 +24,10 @@ namespace CorsoSystems.IgnitionNet.History
         {
             GetDbManager(context).PatchDatabase(partitionNames);
         }
+
+        public static void PatchPartition(this DbContext context, string partitionName)
+        {
+            GetDbManager(context).PatchPartition(partitionName);
+        }
     }
 }

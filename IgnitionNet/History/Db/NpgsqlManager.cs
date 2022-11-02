@@ -14,7 +14,7 @@ namespace CorsoSystems.IgnitionNet.History.Db
 			_schema = schema;
 		}
 
-		public override string PatchAlarmEventData => $@"
+		public override string PatchAlarmEventDataQuery => $@"
 			CREATE TABLE IF NOT EXISTS {_schema}.alarm_event_data (
 				id int4 NULL,
 				propname varchar(255) NULL,
@@ -25,7 +25,7 @@ namespace CorsoSystems.IgnitionNet.History.Db
 			);
 			CREATE INDEX IF NOT EXISTS alarm_event_dataidndx ON {_schema}.alarm_event_data USING btree (id);";
 
-		public override string PatchAlarmEvents => $@"
+		public override string PatchAlarmEventsQuery => $@"
 			CREATE TABLE IF NOT EXISTS {_schema}.alarm_events (
 				id serial4 NOT NULL,
 				eventid varchar(255) NULL,
@@ -38,7 +38,7 @@ namespace CorsoSystems.IgnitionNet.History.Db
 				CONSTRAINT alarm_events_pkey PRIMARY KEY(id)
 			);";
 
-        public override string PatchHistoricalTagAnnotations => $@"
+        public override string PatchHistoricalTagAnnotationsQuery => $@"
 			CREATE TABLE IF NOT EXISTS {_schema}.sqlth_annotations (
 				id serial4 NOT NULL,
 				tagid int4 NULL,
@@ -52,7 +52,7 @@ namespace CorsoSystems.IgnitionNet.History.Db
 			CREATE INDEX IF NOT EXISTS sqlth_annotationsend_timendx ON {_schema}.sqlth_annotations USING btree(end_time);
 			CREATE INDEX IF NOT EXISTS sqlthannotationsstarttimendx ON {_schema}.sqlth_annotations USING btree(start_time);";
 
-        public override string PatchHistoricalDriver => $@"
+        public override string PatchHistoricalDriverQuery => $@"
 			CREATE TABLE IF NOT EXISTS {_schema}.sqlth_drv (
 				id serial4 NOT NULL,
 				""name"" varchar(255) NULL,
@@ -60,7 +60,7 @@ namespace CorsoSystems.IgnitionNet.History.Db
 				CONSTRAINT sqlth_drv_pkey PRIMARY KEY(id)
 			);";
 
-        public override string PatchHistoricalScanClassExecution => $@"
+        public override string PatchHistoricalScanClassExecutionQuery => $@"
 			CREATE TABLE IF NOT EXISTS {_schema}.sqlth_sce (
 				scid int4 NULL,
 				start_time int8 NULL,
@@ -70,7 +70,7 @@ namespace CorsoSystems.IgnitionNet.History.Db
 			CREATE INDEX IF NOT EXISTS sqlth_sceend_timendx ON {_schema}.sqlth_sce USING btree (end_time);
 			CREATE INDEX IF NOT EXISTS sqlth_scestart_timendx ON {_schema}.sqlth_sce USING btree (start_time);";
 
-        public override string PatchHistoricalScanClass => $@"
+        public override string PatchHistoricalScanClassQuery => $@"
 			CREATE TABLE IF NOT EXISTS {_schema}.sqlth_scinfo (
 				id serial4 NOT NULL,
 				scname varchar(255) NULL,
@@ -78,7 +78,7 @@ namespace CorsoSystems.IgnitionNet.History.Db
 				CONSTRAINT sqlth_scinfo_pkey PRIMARY KEY (id)
 			);";
 
-        public override string PatchHistoricalTag => $@"
+        public override string PatchHistoricalTagQuery => $@"
 			CREATE TABLE IF NOT EXISTS {_schema}.sqlth_te (
 				id serial4 NOT NULL,
 				tagpath varchar(255) NULL,
@@ -91,7 +91,7 @@ namespace CorsoSystems.IgnitionNet.History.Db
 			);
 			CREATE INDEX IF NOT EXISTS sqlth_tetagpathndx ON {_schema}.sqlth_te USING btree(tagpath);";
 
-		public override string PatchPartition(string partitionName)
+		public override string PatchPartitionQuery(string partitionName)
 		{
             var tableName = $"{_schema}.{partitionName}";
             var pkName = $"{partitionName}_pkey";
