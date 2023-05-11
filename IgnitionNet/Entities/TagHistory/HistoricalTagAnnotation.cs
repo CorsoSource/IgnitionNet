@@ -1,10 +1,10 @@
-﻿namespace CorsoSystems.IgnitionNet.History.Tag
+﻿namespace CorsoSystems.IgnitionNet.Entities.TagHistory
 {
     public partial class HistoricalTagAnnotation
     {
         public int Id { get; set; }
         public int TagId { get; set; }
-        public HistoricalTag Tag { get; set; } = null!;
+        public HistoricalTag Tag { get; set; } = default!;
         public long? StartTime { get; set; }
         public long? EndTime { get; set; }
         public string? Type { get; set; }

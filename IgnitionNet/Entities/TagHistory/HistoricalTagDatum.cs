@@ -1,4 +1,4 @@
-﻿namespace CorsoSystems.IgnitionNet.History.Tag
+﻿namespace CorsoSystems.IgnitionNet.Entities.TagHistory
 {
     public partial class HistoricalTagDatum
     {
