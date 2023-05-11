@@ -15,12 +15,12 @@ public class PartitionContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
         modelBuilder.Entity<HistoricalTagDatum>(entity =>
         {
-            entity.ToTable(_partionName)
-                .HasNoKey();
+            entity.Metadata.SetIsTableExcludedFromMigrations(true);
 
+            entity.ToTable(_partionName)
+                 .HasNoKey();
             entity.Property(e => e.TagId)
                 .HasColumnName("tagid");
             entity.Property(e => e.IntValue)

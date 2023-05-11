@@ -14,6 +14,8 @@ public class HistoryContext : DbContext
     {
         modelBuilder.Entity<HistoricalTag>(entity =>
         {
+            entity.Metadata.SetIsTableExcludedFromMigrations(true);
+
             entity.ToTable("sqlth_te", "public");
 
             entity.HasIndex(e => e.TagPath, "sqlth_tetagpathndx");
@@ -37,6 +39,8 @@ public class HistoryContext : DbContext
 
         modelBuilder.Entity<AlarmEvent>(entity =>
         {
+            entity.Metadata.SetIsTableExcludedFromMigrations(true);
+
             entity.ToTable("alarm_events", "public");
 
             entity.Property(e => e.Id).HasColumnName("id");
@@ -66,6 +70,7 @@ public class HistoryContext : DbContext
 
         modelBuilder.Entity<AlarmEventDatum>(entity =>
         {
+            entity.Metadata.SetIsTableExcludedFromMigrations(true);
 
             entity.ToTable("alarm_event_data", "public");
 
@@ -88,6 +93,8 @@ public class HistoryContext : DbContext
 
         modelBuilder.Entity<HistoricalTagDatum>(entity =>
         {
+            entity.Metadata.SetIsTableExcludedFromMigrations(true);
+
             entity.ToTable("sqlth_data", t => t.ExcludeFromMigrations());
 
             entity.HasNoKey();
@@ -109,6 +116,8 @@ public class HistoryContext : DbContext
 
         modelBuilder.Entity<HistoricalTagAnnotation>(entity =>
         {
+            entity.Metadata.SetIsTableExcludedFromMigrations(true);
+
             entity.ToTable("sqlth_annotations", "public");
 
             entity.HasIndex(e => e.EndTime, "sqlth_annotationsend_timendx");
@@ -138,6 +147,8 @@ public class HistoryContext : DbContext
 
         modelBuilder.Entity<HistoricalDriver>(entity =>
         {
+            entity.Metadata.SetIsTableExcludedFromMigrations(true);
+
             entity.ToTable("sqlth_drv", "public");
 
             entity.Property(e => e.Id).HasColumnName("id");
@@ -153,6 +164,8 @@ public class HistoryContext : DbContext
 
         modelBuilder.Entity<HistoricalPartition>(entity =>
         {
+            entity.Metadata.SetIsTableExcludedFromMigrations(true);
+
             entity.HasKey(entity => entity.PartitionName);
             entity.ToTable("sqlth_partitions", "public");
 
@@ -173,6 +186,8 @@ public class HistoryContext : DbContext
 
         modelBuilder.Entity<HistoricalScanClassExecution>(entity =>
         {
+            entity.Metadata.SetIsTableExcludedFromMigrations(true);
+
             entity.HasNoKey();
 
             entity.ToTable("sqlth_sce", "public");
@@ -192,6 +207,8 @@ public class HistoryContext : DbContext
 
         modelBuilder.Entity<HistoricalScanClass>(entity =>
         {
+            entity.Metadata.SetIsTableExcludedFromMigrations(true);
+
             entity.ToTable("sqlth_scinfo", "public");
 
             entity.Property(e => e.Id).HasColumnName("id");

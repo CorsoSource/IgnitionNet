@@ -9,6 +9,8 @@ public static class InternalContextExtension
     {
         modelBuilder.Entity<TagHistorianProviderSetting>(entity =>
         {
+            entity.Metadata.SetIsTableExcludedFromMigrations(true);
+
             entity.HasKey(e => e.ProfileId);
 
             entity.ToTable("TAGHISTORIANPROVIDERSETTINGS");

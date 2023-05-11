@@ -12,7 +12,7 @@
 		<PackageProjectUrl>https://github.com/CorsoSource/IgnitionNet</PackageProjectUrl>
 		<Description>.NET POCOs and Entity Framework context for Inductive Automation's Ignition platform</Description>
 		<RepositoryUrl>https://github.com/CorsoSource/IgnitionNet</RepositoryUrl>
-		<PackageVersion>2.0.0</PackageVersion>
+		<PackageVersion>2.0.1</PackageVersion>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
